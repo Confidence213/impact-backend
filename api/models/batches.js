@@ -9,15 +9,16 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       startDate: {
-        type: Date,
+        type: DataTypes.DATEONLY,
         allowNull: false
       },
       endDate: {
-        type: Date,
+        type: DataTypes.DATEONLY,
         allowNull: false
       }
     },
     {
+      timestamps: false,
       tableName: "batches"
     }
   );
