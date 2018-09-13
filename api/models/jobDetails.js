@@ -2,20 +2,24 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
-    "job_details",
+    "jobDetails",
     {
       jobName: {
         type: DataTypes.STRING(20),
         allowNull: false
       },
-      job_desc: {
+      jobDesc: {
         type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      location: {
+        type: DataTypes.STRING(30),
         allowNull: false
       }
     },
     {
       timestamps: false,
-      tableName: "job_details"
+      tableName: "jobDetails"
     }
   );
 };

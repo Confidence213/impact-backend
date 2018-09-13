@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for macos10.13 (x86_64)
 --
--- Host: localhost    Database: employees
+-- Host: 127.0.0.1    Database: alumni
 -- ------------------------------------------------------
--- Server version	5.7.23-0ubuntu0.18.04.1
+-- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+ SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -16,22 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `employees`
+-- Table structure for table `batches`
 --
 
-DROP TABLE IF EXISTS `employees`;
+DROP TABLE IF EXISTS `batches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `employees` (
-  `emp_no` int(11) NOT NULL,
-  `birth_date` date NOT NULL,
-  `first_name` varchar(14) NOT NULL,
-  `last_name` varchar(16) NOT NULL,
-  `gender` enum('M','F') NOT NULL,
-  `hire_date` date NOT NULL,
-  PRIMARY KEY (`emp_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `batches` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `batchName` varchar(20) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `batches`
+--
+
+LOCK TABLES `batches` WRITE;
+/*!40000 ALTER TABLE `batches` DISABLE KEYS */;
+INSERT INTO `batches` VALUES (1,'Awesome Avalon','2017-10-02','2017-11-24'),(2,'Brave Bahamut','2018-01-08','2018-03-02'),(3,'Curious Charizard','2018-03-19','2018-05-11'),(4,'Daring Drogon','2018-07-02','2018-08-24'),(5,'Eager Ender','2018-07-30','2018-09-21');
+/*!40000 ALTER TABLE `batches` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -42,4 +50,4 @@ CREATE TABLE `employees` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-31  9:50:36
+-- Dump completed on 2018-09-13 22:57:18

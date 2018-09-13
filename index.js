@@ -1,25 +1,28 @@
-require("dotenv").config()
+require("dotenv").config();
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
-const express = require("express")
-const logger = require("morgan")
-const bodyParser = require('body-parser');
+const express = require("express");
+const logger = require("morgan");
+const bodyParser = require("body-parser");
 
-const employees = require("./api/employees")
-const accounts = require("./api/accounts")
-const cors = require("cors")
-const index = require("./api")
+const batches = require("./api/batches");
+const partners = require("./api/partners");
+// const students = require("./api/students");
+const jobDetails = require("./api/jobDetails");
+const cors = require("cors");
+const index = require("./api");
 
-const app = express()
+const app = express();
 
-app.use(logger("dev"))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cors())
+app.use(logger("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
-app.use("/", index)
-app.use("/employees", employees)
-app.use("/accounts", accounts)
-
+app.use("/", index);
+app.use("/batches", batches);
+app.use("/partners", partners);
+// app.use("/students", students);
+app.use("/jobDetails", jobDetails);
 app.listen(PORT, () => console.log(`Application Running on  port ${PORT}`));

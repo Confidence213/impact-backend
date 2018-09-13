@@ -1,10 +1,10 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.send({
-        message: "API Project 3"
-    })
-})
+  res.send({
+    message: "ALUMNI"
+  });
+});
 
-module.exports = router
+module.exports = router;

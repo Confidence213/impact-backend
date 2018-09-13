@@ -2,47 +2,47 @@ const models = require("../models");
 
 module.exports = {
   // ---------------------------------------------------------------------------
-  // GET /employees
+  // GET /jobDetails
   get: (req, res) => {
-    models.employees.findAll({ limit: 100 }).then(employee => {
-      if (employee === null) {
+    models.jobDetails.findAll({ limit: 100 }).then(jobDetail => {
+      if (jobDetail === null) {
         return res.send({
-          message: "data not fund"
+          message: "data not found"
         });
       }
 
       res.send({
-        data: employee
+        data: jobDetail
       });
     });
   },
   // ---------------------------------------------------------------------------
-  // GET /employees/:emp_no
+  // GET /jobDetails/:id
   getById: (req, res) => {
-    req.params.emp_no = JSON.parse(req.params.emp_no);
-    models.employees
-      .findOne({ where: { emp_no: req.params.emp_no } })
-      .then(employee => {
-        if (employee === null) {
+    req.params.id = JSON.parse(req.params.id);
+    models.jobDetails
+      .findOne({ where: { id: req.params.id } })
+      .then(jobDetail => {
+        if (jobDetail === null) {
           return res.send({
             message: "data not fund"
           });
         }
 
         res.send({
-          data: employee
+          data: jobDetail
         });
       });
   },
   // ---------------------------------------------------------------------------
-  // POST /employees
+  // POST /jobDetails
   post: (req, res) => {
-    models.employees
+    models.jobDetails
       .create(req.body)
-      .then(employee => {
+      .then(jobDetail => {
         res.send({
           message: "insert data success",
-          data: employee
+          data: jobDetail
         });
       })
       .catch(err =>
@@ -53,20 +53,20 @@ module.exports = {
       );
   },
   // ---------------------------------------------------------------------------
-  // PUT /employees/:emp_no
+  // PUT /jobDetails/:id
   put: async (req, res) => {
-    req.params.emp_no = JSON.parse(req.params.emp_no);
+    req.params.id = JSON.parse(req.params.id);
 
-    models.employees
-      .findOne({ where: { emp_no: req.params.emp_no } })
-      .then(employee => {
-        if (employee) {
-          return employee
+    models.jobDetails
+      .findOne({ where: { id: req.params.id } })
+      .then(jobDetail => {
+        if (jobDetail) {
+          return jobDetail
             .update(req.body)
-            .then(updated_employee =>
+            .then(updated_batch =>
               res.send({
                 message: "update data success",
-                data: updated_employee
+                data: updated_batch
               })
             )
             .catch(err => Promise.reject(err));
@@ -85,12 +85,12 @@ module.exports = {
 
     // using async await
     // try {
-    //     let employee = await models.employees.findOne({ where: { emp_no: req.params.emp_no } }).then(employee => employee)
+    //     let jobDetail = await models.jobDetails.findOne({ where: { id: req.params.id } }).then(jobDetail => jobDetail)
 
-    //     if (employee) {
-    //         await employee.update(req.body).then(updated_employee => res.send({
+    //     if (jobDetail) {
+    //         await jobDetail.update(req.body).then(updated_batch => res.send({
     //             message: "update data success",
-    //             data: updated_employee
+    //             data: updated_batch
     //         }))
     //     } else {
     //         res.send({
@@ -105,15 +105,15 @@ module.exports = {
     // }
   },
   // ---------------------------------------------------------------------------
-  // DELETE /employees/:emp_no
+  // DELETE /jobDetails/:id
   deleteById: async (req, res) => {
-    req.params.emp_no = JSON.parse(req.params.emp_no);
+    req.params.id = JSON.parse(req.params.id);
 
-    models.employees
-      .findOne({ where: { emp_no: req.params.emp_no } })
-      .then(employee => {
-        if (employee) {
-          return employee
+    models.jobDetails
+      .findOne({ where: { id: req.params.id } })
+      .then(jobDetail => {
+        if (jobDetail) {
+          return jobDetail
             .destroy()
             .then(deleted_employee =>
               res.send({
@@ -137,10 +137,10 @@ module.exports = {
 
     // using async await
     // try {
-    //     let employee = await models.employees.findOne({ where: { emp_no: req.params.emp_no } }).then(employee => employee)
+    //     let jobDetail = await models.jobDetails.findOne({ where: { id: req.params.id } }).then(jobDetail => jobDetail)
 
-    //     if (employee) {
-    //         await employee.destroy().then(deleted_employee => res.send({
+    //     if (jobDetail) {
+    //         await jobDetail.destroy().then(deleted_employee => res.send({
     //             message: "delete data success",
     //             data: deleted_employee
     //         }))
@@ -157,7 +157,7 @@ module.exports = {
     // }
   },
   // ---------------------------------------------------------------------------
-  // GET /employees/search
+  // GET /jobDetails/search
   search: (req, res) => {
     let filter = {};
     //check offset
@@ -212,12 +212,12 @@ module.exports = {
       }
     });
 
-    models.employees
+    models.jobDetails
       .findAndCountAll(filter)
-      .then(employee =>
+      .then(jobDetail =>
         res.send({
           filter: filter,
-          data: employee
+          data: jobDetail
         })
       )
       .catch(error =>
