@@ -5,11 +5,11 @@ module.exports = function(sequelize, DataTypes) {
     "jobDetails",
     {
       jobName: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(100),
         allowNull: false
       },
       jobDesc: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(1000),
         allowNull: false
       },
       location: {
