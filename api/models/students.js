@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+  let students = sequelize.define(
     "students",
     {
       fullName: {
@@ -29,9 +29,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(200),
         allowNull: false
       },
-      batchName: {
-        type: DataTypes.STRING(15),
-        allowNull: false
+      id_batch: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: 1
       }
     },
     {
@@ -39,4 +40,13 @@ module.exports = function(sequelize, DataTypes) {
       tableName: "students"
     }
   );
+
+  students.associate = function (models) {
+    models.students.belongsTo(models.batches, {
+      foreignKey: 'id_batch',
+      targetKey: 'id'
+    });
+  };
+
+  return students
 };

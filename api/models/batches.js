@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+  let batches = sequelize.define(
     "batches",
     {
       batchName: {
@@ -22,4 +22,14 @@ module.exports = function(sequelize, DataTypes) {
       tableName: "batches"
     }
   );
+
+  batches.associate = function (models) {
+    models.batches.hasMany(models.students, {
+      foreignKey: 'id',
+      as: 'batches'
+    });
+  };
+
+  return batches
+
 };
