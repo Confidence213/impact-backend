@@ -2,6 +2,7 @@ const models = require("./../models");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
 
 module.exports = {
   // ---------------------------------------------------------------------------
@@ -157,5 +158,61 @@ module.exports = {
     //         error: err
     //     })
     // }
+  },
+  // ---------------------------------------------------------------------------
+  // POST /students/generate_sign_up_form
+  generateSignUpForm: async (req, res) => {
+    let email = req.body.email
+
+    models.students.findOne({ where: { email: email } }).then(student => {
+      if (student === null) {
+        return res.send({
+          message: "Data Not Found"
+        })
+      } else if (student.passowrd !== null) {
+        //generate token
+        let token_data = {}
+        token_data.payload = {
+          name: `${student.fullName}`,
+          email: student.email
+        }
+        token_data.secret = process.env.JWT_SECRET
+        token_data.options = {
+          expiresIn: "1d" // EXPIRATION: 1 days
+        }
+        const token = jwt.sign(token_data.payload, token_data.secret, token_data.options)
+
+        //email config
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.SYSTEM_EMAIL,
+            pass: process.env.SYSTEM_EMAIL_PASSWORD
+          }
+        });
+
+        const mailOptions = {
+          from: process.env.SYSTEM_EMAIL, // sender address
+          to: student.email, // list of receivers
+          subject: 'Signup to IB-Alumni Using This URL', // Subject line
+          html: `<p>Set your password: ${process.env.CLIENT_URL}/signup/${token} </p>` // plain text body
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return res.send({
+              error: error
+            })
+          }
+          console.log('Message sent: %s', info.messageId);
+          // Preview only available when sending through an Ethereal account
+          console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+          res.send({
+            message: "Success"
+          })
+        });
+
+      }
+    })
   }
 };
