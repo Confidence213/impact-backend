@@ -31,8 +31,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       id_batch: {
         type: DataTypes.INTEGER(11),
-        allowNull: false,
-        defaultValue: 1
+        allowNull: false
       }
     },
     {

@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
+module.exports = function (sequelize, DataTypes) {
+  let jobDetails = sequelize.define(
     "jobDetails",
     {
       jobName: {
@@ -12,8 +12,24 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(1000),
         allowNull: false
       },
+      qualifications: {
+        type: DataTypes.STRING(1000),
+        allowNull: false
+      },
+      employmentType: {
+        type: DataTypes.STRING(25),
+        allowNull: false
+      },
+      minimumExperience: {
+        type: DataTypes.STRING(50),
+        allowNull: false
+      },
       location: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(500),
+        allowNull: false
+      },
+      id_company: {
+        type: DataTypes.INTEGER(11),
         allowNull: false
       }
     },
@@ -22,4 +38,13 @@ module.exports = function(sequelize, DataTypes) {
       tableName: "jobDetails"
     }
   );
+
+  jobDetails.associate = function (models) {
+    models.jobDetails.belongsTo(models.partners, {
+      foreignKey: 'id_company',
+      targetKey: 'id'
+    });
+  };
+
+  return jobDetails
 };
