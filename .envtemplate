@@ -6,4 +6,5 @@ DB_PASSWORD=myrootpassword
 DB_NAME=alumni
 DB_HOSTNAME=localhost
 SYSTEM_EMAIL=moehammadhaekal@gmail.com
-SYSTEM_EMAIL_PASSWORD=
+SYSTEM_EMAIL_PASSWORD=yourpassword
+CLIENT_URL=http://localhost:3001
