@@ -242,5 +242,21 @@ module.exports = {
       })
     })
 
+  },
+  // ---------------------------------------------------------------------------
+  // POST /students/decode_token
+  decodeToken: async (req, res) => {
+    if (req.decoded) {
+      res.send({
+        decoded: req.decoded
+      })
+    } else {
+      res.send({
+        message: "token not valid"
+      })
+    }
+
+
+
   }
 };
