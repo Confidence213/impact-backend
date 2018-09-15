@@ -19,15 +19,15 @@ module.exports = {
     try {
       let decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      let account = models.accounts
+      let student = models.students
         .findOne({ where: { email: decoded.email } })
-        .then(account => {
-          if (account === null) {
+        .then(student => {
+          if (student === null) {
             return res.send({
               message: "No account is associated with that token"
             });
           }
-
+          console.log(decoded)
           req.decoded = decoded;
           next();
         });

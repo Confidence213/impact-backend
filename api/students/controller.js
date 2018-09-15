@@ -214,5 +214,33 @@ module.exports = {
 
       }
     })
+  },
+  // ---------------------------------------------------------------------------
+  // POST /students/set_password
+  setPassword: async (req, res) => {
+    let password = req.body.password;
+    let email = req.decoded.email;
+    const SALT_WORK_FACTOR = 10;
+    const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+    password = bcrypt.hashSync(password, salt);
+
+    models.students.findOne({ where: { email: email } }).then(student => {
+      if (student) {
+        return student.update({ password: password }).then(updated_student => res.send({
+          message: "update data success",
+          data: updated_student
+        })).catch(err => Promise.reject(err))
+      } else {
+        res.send({
+          message: "data not found",
+        })
+      }
+    }).catch(err => {
+      res.send({
+        message: "error",
+        error: err
+      })
+    })
+
   }
 };

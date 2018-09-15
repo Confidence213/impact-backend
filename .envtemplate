@@ -1,0 +1,9 @@
+PORT=3000
+JWT_SECRET=myjwtsecret
+TEST_ENV=test
+DB_USERNAME=root
+DB_PASSWORD=myrootpassword
+DB_NAME=alumni
+DB_HOSTNAME=localhost
+SYSTEM_EMAIL=moehammadhaekal@gmail.com
+SYSTEM_EMAIL_PASSWORD=
