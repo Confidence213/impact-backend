@@ -75,20 +75,22 @@ module.exports = {
     }
   },
   // ---------------------------------------------------------------------------
-  // GET /students/:emp_no
+  // GET /students/:id
   getById: (req, res) => {
-    req.params.emp_no = JSON.parse(req.params.emp_no);
-    models.employees
-      .findOne({ where: { emp_no: req.params.emp_no } })
-      .then(employee => {
-        if (employee === null) {
+    console.log("test")
+    const id = JSON.parse(req.params.id)
+
+    models.students
+      .findAll({ where: { id: id } })
+      .then(student => {
+        if (student === null) {
           return res.send({
             message: "data not fund"
           });
         }
 
         res.send({
-          data: employee
+          data: student
         });
       });
   },
