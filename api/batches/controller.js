@@ -224,5 +224,40 @@ module.exports = {
           error: error
         })
       );
+  },
+  // ---------------------------------------------------------------------------
+  // GET /batches/:id/students
+  getStudentsByBatch: (req, res) => {
+
+    const id = JSON.parse(req.params.id);
+
+    models.batches.findAll({
+      where: {
+        id: id
+      },
+      include: [{ model: models.students, as: "students", attributes: { exclude: ["password"] } }]
+    }).then(result => {
+      if (result === null) {
+        return res.send({
+          message: "data not fund"
+        })
+      }
+
+      res.send({
+        data: result
+      })
+    })
+
+    // models.batches.findOne({ where: { id: req.params.id } }).then(batch => {
+    //   if (batch === null) {
+    //     return res.send({
+    //       message: "data not fund"
+    //     });
+    //   }
+
+    //   res.send({
+    //     data: batch
+    //   });
+    // });
   }
 };

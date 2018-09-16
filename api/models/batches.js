@@ -25,8 +25,8 @@ module.exports = function (sequelize, DataTypes) {
 
   batches.associate = function (models) {
     models.batches.hasMany(models.students, {
-      foreignKey: 'id',
-      as: 'batches'
+      foreignKey: 'id_batch',
+      as: "students"
     });
   };
 
