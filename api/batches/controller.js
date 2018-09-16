@@ -247,17 +247,5 @@ module.exports = {
         data: result
       })
     })
-
-    // models.batches.findOne({ where: { id: req.params.id } }).then(batch => {
-    //   if (batch === null) {
-    //     return res.send({
-    //       message: "data not fund"
-    //     });
-    //   }
-
-    //   res.send({
-    //     data: batch
-    //   });
-    // });
   }
 };
