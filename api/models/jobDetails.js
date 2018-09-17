@@ -12,6 +12,14 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(1000),
         allowNull: false
       },
+      location: {
+        type: DataTypes.STRING(500),
+        allowNull: false
+      },
+      id_company: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false
+      },
       qualifications: {
         type: DataTypes.STRING(1000),
         allowNull: false
@@ -22,14 +30,6 @@ module.exports = function (sequelize, DataTypes) {
       },
       minimumExperience: {
         type: DataTypes.STRING(50),
-        allowNull: false
-      },
-      location: {
-        type: DataTypes.STRING(500),
-        allowNull: false
-      },
-      id_company: {
-        type: DataTypes.INTEGER(11),
         allowNull: false
       }
     },
