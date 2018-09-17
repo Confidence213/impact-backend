@@ -15,6 +15,9 @@ module.exports = function(sequelize, DataTypes) {
       endDate: {
         type: DataTypes.DATEONLY,
         allowNull: false
+      },
+      image: {
+        type: DataTypes.STRING(20)
       }
     },
     {
