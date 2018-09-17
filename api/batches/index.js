@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require("./controller");
 const helpers = require("../helpers");
 
+router.get("/:id/students", helpers.isAuthenticated, controller.getStudentsByBatch);
 router.get("/search", helpers.isAuthenticated, controller.search);
 router.get("/", helpers.isAuthenticated, controller.get);
 router.get("/:id", helpers.isAuthenticated, controller.getById);

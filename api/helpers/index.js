@@ -4,6 +4,7 @@ const models = require("../models");
 module.exports = {
   isAuthenticated: async (req, res, next) => {
     // (1) Check for token from various ways
+    console.log(req.body.token)
     const token =
       req.body.token ||
       req.query.token ||
@@ -19,15 +20,14 @@ module.exports = {
     try {
       let decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      let account = models.accounts
+      let student = models.students
         .findOne({ where: { email: decoded.email } })
-        .then(account => {
-          if (account === null) {
+        .then(student => {
+          if (student === null) {
             return res.send({
               message: "No account is associated with that token"
             });
           }
-
           req.decoded = decoded;
           next();
         });

@@ -1,6 +1,10 @@
 /* jshint indent: 2 */
 
+<<<<<<< HEAD
 module.exports = function(sequelize, DataTypes) {
+=======
+module.exports = function (sequelize, DataTypes) {
+>>>>>>> model-relations
   let students = sequelize.define(
     "students",
     {
@@ -40,6 +44,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
+<<<<<<< HEAD
   students.associate = function(models) {
     models.students.belongsTo(models.batches, {
       foreignKey: "id_batch",
@@ -48,4 +53,14 @@ module.exports = function(sequelize, DataTypes) {
   };
 
   return students;
+=======
+  students.associate = function (models) {
+    models.students.belongsTo(models.batches, {
+      foreignKey: 'id_batch',
+      targetKey: 'id'
+    });
+  };
+
+  return students
+>>>>>>> model-relations
 };
