@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
+  let partners = sequelize.define(
     "partners",
     {
       companyName: {
@@ -22,4 +22,12 @@ module.exports = function(sequelize, DataTypes) {
       tableName: "partners"
     }
   );
+
+  partners.associate = function(models) {
+    models.partners.hasMany(models.jobDetails, {
+      targetKey: "id"
+    });
+  };
+
+  return partners;
 };
