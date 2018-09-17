@@ -1,10 +1,6 @@
 /* jshint indent: 2 */
 
-<<<<<<< HEAD
 module.exports = function(sequelize, DataTypes) {
-=======
-module.exports = function (sequelize, DataTypes) {
->>>>>>> model-relations
   let jobDetails = sequelize.define(
     "jobDetails",
     {
@@ -43,7 +39,6 @@ module.exports = function (sequelize, DataTypes) {
     }
   );
 
-<<<<<<< HEAD
   jobDetails.associate = function(models) {
     models.jobDetails.belongsTo(models.partners, {
       foreignKey: "id_company",
@@ -52,14 +47,4 @@ module.exports = function (sequelize, DataTypes) {
   };
 
   return jobDetails;
-=======
-  jobDetails.associate = function (models) {
-    models.jobDetails.belongsTo(models.partners, {
-      foreignKey: 'id_company',
-      targetKey: 'id'
-    });
-  };
-
-  return jobDetails
->>>>>>> model-relations
 };

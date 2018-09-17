@@ -1,10 +1,6 @@
 /* jshint indent: 2 */
 
-<<<<<<< HEAD
 module.exports = function(sequelize, DataTypes) {
-=======
-module.exports = function (sequelize, DataTypes) {
->>>>>>> model-relations
   let partners = sequelize.define(
     "partners",
     {
@@ -27,7 +23,6 @@ module.exports = function (sequelize, DataTypes) {
     }
   );
 
-<<<<<<< HEAD
   partners.associate = function(models) {
     models.partners.hasMany(models.jobDetails, {
       targetKey: "id"
@@ -35,13 +30,4 @@ module.exports = function (sequelize, DataTypes) {
   };
 
   return partners;
-=======
-  partners.associate = function (models) {
-    models.partners.hasMany(models.jobDetails, {
-      targetKey: 'id'
-    });
-  };
-
-  return partners
->>>>>>> model-relations
 };
