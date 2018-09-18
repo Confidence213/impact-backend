@@ -10,7 +10,7 @@ const batches = require("./api/batches");
 const partners = require("./api/partners");
 const students = require("./api/students");
 const jobDetails = require("./api/jobDetails");
-// const jobDetails = require("./api/students_apply");
+const students_apply = require("./api/students_apply");
 const cors = require("cors");
 const index = require("./api");
 
@@ -22,10 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use("/assets", express.static("assets"));
 
+app.use("/assets", express.static("assets"));
 app.use("/", index);
 app.use("/batches", batches);
 app.use("/partners", partners);
 app.use("/students", students);
 app.use("/jobDetails", jobDetails);
-// app.use("/students_apply", students_apply);
+app.use("/students_apply", students_apply);
 app.listen(PORT, () => console.log(`Application Running on  port ${PORT}`));

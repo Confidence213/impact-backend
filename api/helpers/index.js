@@ -4,7 +4,7 @@ const models = require("../models");
 module.exports = {
   isAuthenticated: async (req, res, next) => {
     // (1) Check for token from various ways
-    console.log(req.body.token)
+    console.log(req.body.token);
     const token =
       req.body.token ||
       req.query.token ||

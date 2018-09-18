@@ -3,9 +3,9 @@ const router = express.Router();
 const controller = require("./controller");
 const helpers = require("../helpers");
 
-router.get("/search", helpers.isAuthenticated, controller.search);
-router.get("/", helpers.isAuthenticated, controller.get);
-router.get("/:id", helpers.isAuthenticated, controller.getById);
+router.get("/search", controller.search);
+router.get("/", controller.get);
+router.get("/:id", controller.getById);
 router.post("/", helpers.isAuthenticated, controller.post);
 router.put("/:id", helpers.isAuthenticated, controller.put);
 router.delete("/:id", helpers.isAuthenticated, controller.deleteById);

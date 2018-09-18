@@ -18,12 +18,12 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     {
-      //   indexes: [
-      //     {
-      //         unique: true,
-      //         fields: ['id_students', 'id_jobDetails']
-      //     }
-      // ]
+      indexes: [
+        {
+          unique: true,
+          fields: ["id_students", "id_jobDetails"]
+        }
+      ],
       timestamps: false,
       tableName: "students_apply"
     }
@@ -31,12 +31,12 @@ module.exports = function(sequelize, DataTypes) {
 
   students_apply.associate = function(models) {
     models.students_apply.hasMany(models.students, {
-      foreignKey: "id_students",
-      targetKey: "id"
+      foreignKey: "id",
+      targetKey: "id_students"
     });
     models.students_apply.hasMany(models.jobDetails, {
-      foreignKey: "id_jobDetails",
-      targetKey: "id"
+      foreignKey: "id",
+      targetKey: "id_jobDetails"
     });
   };
 

@@ -2,7 +2,7 @@ const models = require("./../models");
 const bcrypt = require("bcryptjs");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 module.exports = {
   // ---------------------------------------------------------------------------
@@ -77,22 +77,20 @@ module.exports = {
   // ---------------------------------------------------------------------------
   // GET /students/:id
   getById: (req, res) => {
-    console.log("test")
-    const id = JSON.parse(req.params.id)
+    console.log("test");
+    const id = JSON.parse(req.params.id);
 
-    models.students
-      .findAll({ where: { id: id } })
-      .then(student => {
-        if (student === null) {
-          return res.send({
-            message: "data not fund"
-          });
-        }
-
-        res.send({
-          data: student
+    models.students.findOne({ where: { id: id } }).then(student => {
+      if (student === null) {
+        return res.send({
+          message: "data not fund"
         });
+      }
+
+      res.send({
+        data: student
       });
+    });
   },
   // ---------------------------------------------------------------------------
   // POST /students/register
@@ -164,29 +162,33 @@ module.exports = {
   // ---------------------------------------------------------------------------
   // POST /students/generate_sign_up_form
   generateSignUpForm: async (req, res) => {
-    let email = req.body.email
+    let email = req.body.email;
 
     models.students.findOne({ where: { email: email } }).then(student => {
       if (student === null) {
         return res.send({
           message: "Data Not Found"
-        })
+        });
       } else if (student.passowrd !== null) {
         //generate token
-        let token_data = {}
+        let token_data = {};
         token_data.payload = {
           name: `${student.fullName}`,
           email: student.email
-        }
-        token_data.secret = process.env.JWT_SECRET
+        };
+        token_data.secret = process.env.JWT_SECRET;
         token_data.options = {
           expiresIn: "1d" // EXPIRATION: 1 days
-        }
-        const token = jwt.sign(token_data.payload, token_data.secret, token_data.options)
+        };
+        const token = jwt.sign(
+          token_data.payload,
+          token_data.secret,
+          token_data.options
+        );
 
         //email config
         const transporter = nodemailer.createTransport({
-          service: 'gmail',
+          service: "gmail",
           auth: {
             user: process.env.SYSTEM_EMAIL,
             pass: process.env.SYSTEM_EMAIL_PASSWORD
@@ -196,26 +198,27 @@ module.exports = {
         const mailOptions = {
           from: process.env.SYSTEM_EMAIL, // sender address
           to: student.email, // list of receivers
-          subject: 'Signup to IB-Alumni Using This URL', // Subject line
-          html: `<p>Set your password: ${process.env.CLIENT_URL}/signup/${token} </p>` // plain text body
+          subject: "Signup to IB-Alumni Using This URL", // Subject line
+          html: `<p>Set your password: ${
+            process.env.CLIENT_URL
+          }/signup/${token} </p>` // plain text body
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
             return res.send({
               error: error
-            })
+            });
           }
-          console.log('Message sent: %s', info.messageId);
+          console.log("Message sent: %s", info.messageId);
           // Preview only available when sending through an Ethereal account
-          console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
           res.send({
             message: "Success"
-          })
+          });
         });
-
       }
-    })
+    });
   },
   // ---------------------------------------------------------------------------
   // POST /students/set_password
@@ -226,24 +229,31 @@ module.exports = {
     const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
     password = bcrypt.hashSync(password, salt);
 
-    models.students.findOne({ where: { email: email } }).then(student => {
-      if (student) {
-        return student.update({ password: password }).then(updated_student => res.send({
-          message: "update data success",
-          data: updated_student
-        })).catch(err => Promise.reject(err))
-      } else {
-        res.send({
-          message: "data not found",
-        })
-      }
-    }).catch(err => {
-      res.send({
-        message: "error",
-        error: err
+    models.students
+      .findOne({ where: { email: email } })
+      .then(student => {
+        if (student) {
+          return student
+            .update({ password: password })
+            .then(updated_student =>
+              res.send({
+                message: "update data success",
+                data: updated_student
+              })
+            )
+            .catch(err => Promise.reject(err));
+        } else {
+          res.send({
+            message: "data not found"
+          });
+        }
       })
-    })
-
+      .catch(err => {
+        res.send({
+          message: "error",
+          error: err
+        });
+      });
   },
   // ---------------------------------------------------------------------------
   // POST /students/decode_token
@@ -251,14 +261,11 @@ module.exports = {
     if (req.decoded) {
       res.send({
         decoded: req.decoded
-      })
+      });
     } else {
       res.send({
         message: "token not valid"
-      })
+      });
     }
-
-
-
   }
 };

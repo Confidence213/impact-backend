@@ -32,6 +32,14 @@ module.exports = function(sequelize, DataTypes) {
       id_batch: {
         type: DataTypes.INTEGER(11),
         allowNull: false
+      },
+      github: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      current_status: {
+        type: DataTypes.STRING(50),
+        allowNull: false
       }
     },
     {
