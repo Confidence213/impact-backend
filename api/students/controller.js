@@ -259,8 +259,16 @@ module.exports = {
   // POST /students/decode_token
   decodeToken: async (req, res) => {
     if (req.decoded) {
-      res.send({
-        decoded: req.decoded
+      models.students.findOne({ where: { email: req.decoded.email } }).then(student => {
+        if (student === null) {
+          return res.send({
+            message: "data not fund"
+          });
+        }
+
+        res.send({
+          user: student
+        });
       });
     } else {
       res.send({
