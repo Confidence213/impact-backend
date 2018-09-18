@@ -93,6 +93,25 @@ module.exports = {
     });
   },
   // ---------------------------------------------------------------------------
+  // POST /students_apply
+  post: (req, res) => {
+    models.students_apply
+      .create(req.body)
+      .then(student => {
+        res.send({
+          message: "insert data success",
+          data: student
+        });
+      })
+      .catch(err =>
+        res.send({
+          message: "error",
+          error: err
+        })
+      );
+  },
+
+  // ---------------------------------------------------------------------------
   // POST /students_apply/register
   register: async (req, res) => {
     const SALT_WORK_FACTOR = 10;
@@ -120,11 +139,11 @@ module.exports = {
   put: async (req, res) => {
     console.log(req.decoded);
 
-    // models.students_apply.findOne({ where: { emp_no: req.params.emp_no } }).then(employee => {
-    //     if (employee) {
-    //         return employee.update(req.body).then(updated_employee => res.send({
+    // models.students_apply.findOne({ where: { emp_no: req.params.emp_no } }).then(student => {
+    //     if (student) {
+    //         return student.update(req.body).then(updated_student => res.send({
     //             message: "update data success",
-    //             data: updated_employee
+    //             data: updated_student
     //         })).catch(err => Promise.reject(err))
     //     } else {
     //         res.send({
@@ -140,12 +159,12 @@ module.exports = {
 
     // using async await
     // try {
-    //     let employee = await models.employees.findOne({ where: { emp_no: req.params.emp_no } }).then(employee => employee)
+    //     let student = await models.students_apply.findOne({ where: { emp_no: req.params.emp_no } }).then(student => student)
 
-    //     if (employee) {
-    //         await employee.update(req.body).then(updated_employee => res.send({
+    //     if (student) {
+    //         await student.update(req.body).then(updated_student => res.send({
     //             message: "update data success",
-    //             data: updated_employee
+    //             data: updated_student
     //         }))
     //     } else {
     //         res.send({
