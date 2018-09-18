@@ -40,6 +40,10 @@ module.exports = function(sequelize, DataTypes) {
       current_status: {
         type: DataTypes.STRING(50),
         allowNull: false
+      },
+      foto: {
+        type: DataTypes.STRING(50),
+        allowNull: false
       }
     },
     {

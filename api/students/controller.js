@@ -64,7 +64,7 @@ module.exports = {
       );
       res.send({
         message: "You are logged in",
-        email: req.body.email,
+        user: student,
         token: token
       });
     } catch (err) {

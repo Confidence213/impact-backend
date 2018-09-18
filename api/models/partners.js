@@ -15,6 +15,9 @@ module.exports = function(sequelize, DataTypes) {
       companyIndustry: {
         type: DataTypes.STRING(100),
         allowNull: false
+      },
+      logo: {
+        type: DataTypes.STRING(30)
       }
     },
     {
