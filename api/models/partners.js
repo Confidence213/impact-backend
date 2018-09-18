@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
 
   partners.associate = function(models) {
     models.partners.hasMany(models.jobDetails, {
-      targetKey: "id"
+      foreignKey: "id"
     });
   };
 
