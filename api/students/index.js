@@ -10,6 +10,6 @@ router.post("/register", controller.register);
 router.post("/login", controller.login);
 router.get("/", controller.get);
 router.get("/:id", controller.getById);
-router.put("/:email", helpers.isAuthenticated, controller.put);
+router.put("/:id", controller.put);
 
 module.exports = router;

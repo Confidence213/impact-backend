@@ -120,44 +120,56 @@ module.exports = {
   put: async (req, res) => {
     console.log(req.decoded);
 
-    // models.students.findOne({ where: { emp_no: req.params.emp_no } }).then(employee => {
-    //     if (employee) {
-    //         return employee.update(req.body).then(updated_employee => res.send({
-    //             message: "update data success",
-    //             data: updated_employee
-    //         })).catch(err => Promise.reject(err))
-    //     } else {
-    //         res.send({
-    //             message: "data not found",
-    //         })
-    //     }
-    // }).catch(err => {
-    //     res.send({
-    //         message: "error",
-    //         error: err
-    //     })
-    // })
+    models.students
+      .findOne({ where: { id: req.params.id } })
+      .then(student => {
+        if (student) {
+          return student
+            .update(req.body)
+            .then(update_student =>
+              res.send({
+                message: "update data success",
+                data: update_student
+              })
+            )
+            .catch(err => Promise.reject(err));
+        } else {
+          res.send({
+            message: "data not found"
+          });
+        }
+      })
+      .catch(err => {
+        res.send({
+          message: "error",
+          error: err
+        });
+      });
 
     // using async await
-    // try {
-    //     let employee = await models.employees.findOne({ where: { emp_no: req.params.emp_no } }).then(employee => employee)
+    try {
+      let student = await models.students
+        .findOne({ where: { id: req.params.id } })
+        .then(student => student);
 
-    //     if (employee) {
-    //         await employee.update(req.body).then(updated_employee => res.send({
-    //             message: "update data success",
-    //             data: updated_employee
-    //         }))
-    //     } else {
-    //         res.send({
-    //             message: "data not found",
-    //         })
-    //     }
-    // } catch (err) {
-    //     res.send({
-    //         message: "error",
-    //         error: err
-    //     })
-    // }
+      if (student) {
+        await student.update(req.body).then(update_student =>
+          res.send({
+            message: "update data success",
+            data: update_student
+          })
+        );
+      } else {
+        res.send({
+          message: "data not found"
+        });
+      }
+    } catch (err) {
+      res.send({
+        message: "error",
+        error: err
+      });
+    }
   },
   // ---------------------------------------------------------------------------
   // POST /students/generate_sign_up_form
@@ -259,17 +271,19 @@ module.exports = {
   // POST /students/decode_token
   decodeToken: async (req, res) => {
     if (req.decoded) {
-      models.students.findOne({ where: { email: req.decoded.email } }).then(student => {
-        if (student === null) {
-          return res.send({
-            message: "data not fund"
-          });
-        }
+      models.students
+        .findOne({ where: { email: req.decoded.email } })
+        .then(student => {
+          if (student === null) {
+            return res.send({
+              message: "data not fund"
+            });
+          }
 
-        res.send({
-          user: student
+          res.send({
+            user: student
+          });
         });
-      });
     } else {
       res.send({
         message: "token not valid"

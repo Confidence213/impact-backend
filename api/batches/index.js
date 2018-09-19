@@ -3,12 +3,11 @@ const router = express.Router();
 const controller = require("./controller");
 const helpers = require("../helpers");
 
-router.get("/:id/students", controller.getStudentsByBatch);
-router.get("/search", controller.search);
 router.get("/", controller.get);
 router.get("/:id", controller.getById);
-router.post("/", helpers.isAuthenticated, controller.post);
+router.get("/:id/students", controller.getBatchesByBatch);
+router.post("/", controller.post);
 router.put("/:id", controller.put);
-router.delete("/:id", helpers.isAuthenticated, controller.deleteById);
+router.delete("/:id", controller.deleteById);
 
 module.exports = router;
