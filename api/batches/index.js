@@ -5,7 +5,7 @@ const helpers = require("../helpers");
 
 router.get("/", controller.get);
 router.get("/:id", controller.getById);
-router.get("/:id/students", controller.getBatchesByBatch);
+router.get("/:id/students", controller.getStudentsByBatch);
 router.post("/", helpers.isAuthenticated, controller.post);
 router.put("/:id", helpers.isAuthenticated, controller.put);
 router.delete("/:id", helpers.isAuthenticated, controller.deleteById);
