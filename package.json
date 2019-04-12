@@ -22,6 +22,6 @@
     "morgan": "^1.9.1",
     "mysql2": "^1.5.3",
     "nodemailer": "^4.6.8",
-    "sequelize": "^4.38.0"
+    "sequelize": "^4.43.1"
   }
 }
